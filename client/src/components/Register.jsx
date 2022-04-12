@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -56,7 +55,6 @@ export default function Register() {
             sm={8}
             md={5} */
             sx={{ boxShadow: "0px 0px 0px 0px" }}
-            square
           >
             <Box
               sx={{
@@ -71,13 +69,9 @@ export default function Register() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Inicio de sesión
+                Registro de usuario
               </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-              >
+              <Box component="form" noValidate onSubmit={handleSubmit}>
                 <TextField
                   margin="normal"
                   required
@@ -123,10 +117,22 @@ export default function Register() {
                   required
                   fullWidth
                   name="password"
-                  label="Ingresa tu direccion"
+                  label="Ingresa tu número de teléfono"
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Ingresa tu dirección"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  multiline
+                  rows={4}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
