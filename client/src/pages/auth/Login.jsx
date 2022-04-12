@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
+import axios from 'axios'
 
 function Copyright(props) {
   return (
@@ -41,15 +42,21 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 /*     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     }); */
     try {
-      
+      console.log(user)
+      await axios.post('http://localhost:5000/user/login', {...user})
+
+      alert('Bienvenido a DeliExpress')
+      localStorage.setItem('firstLogin', true)
+
+      window.location.href = '/'
     } catch (err) {
       alert(err.response.data.msg)
     }
