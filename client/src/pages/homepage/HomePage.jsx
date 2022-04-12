@@ -1,7 +1,7 @@
 import React from 'react'
 import HeroSection from '../../components/HeroSection'
 
-const Products = () => {
+const HomePage = () => {
   return (
     <div>
       <HeroSection />
@@ -9,4 +9,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default HomePage
