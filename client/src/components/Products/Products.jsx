@@ -12,12 +12,6 @@ const Products = () => {
           <Grid item md={4}>
             <Product />
           </Grid>
-          <Grid item md={4}>
-            <Product />
-          </Grid>
-          <Grid item md={4}>
-            <Product />
-          </Grid>
         </Grid>
       </Container>
       </Box>
