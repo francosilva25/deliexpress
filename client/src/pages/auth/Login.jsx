@@ -9,10 +9,8 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import Typography from "@mui/material/Typography";
-import { createTheme } from "@mui/material/styles";
 import { Container } from "@mui/material";
 
 function Copyright(props) {
@@ -45,34 +43,28 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+/*     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
-    });
+    }); */
+    try {
+      
+    } catch (err) {
+      alert(err.response.data.msg)
+    }
   };
+
+  const onChangeInput = (e) => {
+    const {name, value} = e.target;
+    setUser({...user, [name]: value})
+  }
 
   return (
     <Box>
       <Container>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
-          {/*           <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
-            sx={{
-              backgroundImage: "url(https://source.unsplash.com/random)",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: (t) =>
-                t.palette.mode === "light"
-                  ? t.palette.grey[50]
-                  : t.palette.grey[900],
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          /> */}
           <Grid
             item
             xs={12} /* 
@@ -112,6 +104,8 @@ const Login = () => {
                   label="Ingresa tu correo"
                   name="email"
                   autoComplete="email"
+                  value={user.email}
+                  onChange={onChangeInput}
                   autoFocus
                 />
                 <TextField
@@ -123,6 +117,8 @@ const Login = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={user.password}
+                  onChange={onChangeInput}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
