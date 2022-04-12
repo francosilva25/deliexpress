@@ -25,7 +25,7 @@ const userCtrl = {
 
             //then create jsonwebtoken to authentication
             const accesstoken = createAccessToken({id: newUser._id})
-            const refreshtoken = createRefeshToken({id: newUser._id})
+            const refreshtoken = createRefreshToken({id: newUser._id})
 
             res.cookie('refreshtoken', refreshtoken, {
                 httpOnly: true,
@@ -37,6 +37,39 @@ const userCtrl = {
 
         } catch (err) {
             return res.status(500).json({ msg: err.message })
+        }
+    },
+    login: async (req, res) => {
+        try {
+            const {email, password} = req.body;
+            
+            const user = await Users.findOne({email})
+            if(!user) return res.status(400).json({msg: "El usuario no existe."})
+
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch) return res.status(400).json({msg: "Contraseña incorrecta."})
+
+            // Si el login se da satisfctoriamente, se crea un token de y se refresca
+            const accesstoken = createAccessToken({id: user._id})
+            const refreshtoken = createRefreshToken({id: user._id})
+
+            res.cookie('refreshtoken', refreshtoken, {
+                httpOnly: true,
+                path: '/user/refresh_token',
+            })
+
+            res.json({accesstoken})
+
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    logout: async (req, res) => {
+        try {
+            res.clearCookie('refreshtoken', {path: '/user/refresh_token'})
+            return res.json({msg: "Se cerró sesión"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
         }
     },
     refreshToken: (req, res) => {
@@ -56,6 +89,21 @@ const userCtrl = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
+    },
+    getUser: async (req, res) => {
+        try {
+            /* const user = await Users.findById(req.user.id).select('-password')
+            if(!user) return res.status(400).json({msg: "User does not exist."})
+
+            res.json(user) */
+
+            const user = await Users.findById(req.user.id).select('-password')
+            if(!user) return res.status(400).json({msg: "El usuario no existe"})
+
+            res.json(user)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
     }
 }
 
@@ -63,7 +111,7 @@ const createAccessToken = (user) =>{
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
 }
 
-const createRefeshToken = (user) =>{
+const createRefreshToken = (user) =>{
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'})
 }
 
