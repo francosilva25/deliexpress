@@ -5,7 +5,9 @@ const EYM_ROUTES = () => {
   return (
     <BrowserRouter>
       <Routes>
-        
+        {/* <Route path="/*" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
