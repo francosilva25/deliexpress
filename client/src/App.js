@@ -1,10 +1,15 @@
-import EYM_ROUTES from "./routes";
+import Header from "./components/headers/Header";
+import { DataProvider } from "./GlobalState";
+import Pages from "./pages/Pages";
 
 function App() {
   return (
-    <div className="App">
-      <EYM_ROUTES />
-    </div>
+    <DataProvider>
+      <div className="App">
+        <Header />
+        <Pages />
+      </div>
+    </DataProvider>
   );
 }
 
