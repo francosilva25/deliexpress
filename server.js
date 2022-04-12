@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const fileUpload = require('express-fileupload')
-const cokieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -15,14 +14,12 @@ app.use(fileUpload({
 }))
 
 // Routes
-app.use('/user', require('./routes/userRoutes'))
+app.use('/user', require('./routes/userRouter'))
 
 // Conectando a mongodb
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {
-
     useNewUrlParser: true,
-
     useUnifiedTopology: true
 
 }, err => {
@@ -30,5 +27,24 @@ mongoose.connect(URI, {
     console.log('Connected to MongoDB!!!')
 });
 
+app.get('/', (req, res) => {
+    res.json({msg: "RAAAAAAAAAAAAAAA"})
+})
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => { console.log('Server is runing on pot', PORT) })
+
+
+/* const URI = process.env.MONGODB_URL
+
+mongoose
+    .connect(URI)
+    .then(() => console.log("DBConection Successfull!"))
+    .catch((err) => { console.log(err) });
+
+app.use(express.json())
+app.use('/user', require('./routes/userRouter'))
+
+app.listen(process.env.PORT || 5000, () => {
+    console.log("Backend server is runing")
+}) */
