@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Container } from "@mui/material";
 
 function Copyright(props) {
@@ -23,7 +22,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/" sx={{textDecoration: "none"}}>
+      <Link
+        color="inherit"
+        href="https://mui.com/"
+        sx={{ textDecoration: "none" }}
+      >
         DeliExpress
       </Link>{" "}
       {new Date().getFullYear()}
@@ -32,9 +35,7 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
-
-export default function SignInSide() {
+export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -49,30 +50,12 @@ export default function SignInSide() {
       <Container>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
-{/*           <Grid
-            item
-            xs={false}
-            sm={4}
-            md={7}
-            sx={{
-              backgroundImage: "url(https://source.unsplash.com/random)",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: (t) =>
-                t.palette.mode === "light"
-                  ? t.palette.grey[50]
-                  : t.palette.grey[900],
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          /> */}
           <Grid
             item
-            xs={12}/* 
+            xs={12} /* 
             sm={8}
             md={5} */
-            component={Paper}
-            elevation={6}
-            sx={{boxShadow: "0px 0px 0px 0px"}}
+            sx={{ boxShadow: "0px 0px 0px 0px" }}
             square
           >
             <Box
@@ -94,8 +77,17 @@ export default function SignInSide() {
                 component="form"
                 noValidate
                 onSubmit={handleSubmit}
-                sx={{ mt: 1 }}
               >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Ingresa tu usuario"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
                 <TextField
                   margin="normal"
                   required
@@ -112,6 +104,26 @@ export default function SignInSide() {
                   fullWidth
                   name="password"
                   label="Ingresa tu contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Verifica tu contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Ingresa tu direccion"
                   type="password"
                   id="password"
                   autoComplete="current-password"

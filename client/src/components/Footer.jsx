@@ -111,7 +111,7 @@ const Footer = () => {
             <Grid item md={6} xs={12} pb={{ xs: 4 }} pt={4}>
               <Box pr={10}>
                 <img
-                  src="./logo512.png"
+                  src="./deliexpress.png"
                   alt="footer-logo"
                   className={classes.imgLogo}
                 />
@@ -119,10 +119,10 @@ const Footer = () => {
                   variant="body2"
                   sx={{ fontSize: "0.875rem", py: 1 }}
                 >
-                  Crea su mejor anuncio y <br /> exponga su mejor tecnología.
+                  Tus mejores comidas al alcance de un click
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "0.875rem" }}>
-                  energiaymantenimientoelectrico@gmail.com
+                  contacto@deliexpress.com
                 </Typography>
               </Box>
             </Grid>
