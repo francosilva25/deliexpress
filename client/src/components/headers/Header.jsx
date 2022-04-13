@@ -125,7 +125,6 @@ const Header = () => {
           <Grid
             item
             xs={2}
-            bgcolor='green'
             sx={{
               flexGrow: 1,
               display: { xs: "flex", md: "none" },
