@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -22,11 +23,7 @@ function Copyright(props) {
       py={2}
     >
       {"Copyright © "}
-      <Link
-        color="inherit"
-        href="/"
-        sx={{ textDecoration: "none" }}
-      >
+      <Link color="inherit" href="/" sx={{ textDecoration: "none" }}>
         DeliExpress
       </Link>{" "}
       {new Date().getFullYear()}
@@ -36,13 +33,28 @@ function Copyright(props) {
 }
 
 const Register = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const registerSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/user/register', { ...user });
+
+      localStorage.setItem("firstLogin", true);
+
+      window.location.href = "/";
+    } catch (err) {
+      alert(err.response.data.msg);
+    }
   };
 
   return (
@@ -66,7 +78,7 @@ const Register = () => {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={registerSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -79,6 +91,8 @@ const Register = () => {
                   label="Ingresa tu correo"
                   name="email"
                   autoComplete="email"
+                  value={user.email}
+                  onChange={onChangeInput}
                   autoFocus
                 />
               </Grid>
@@ -92,9 +106,11 @@ const Register = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={user.password}
+                  onChange={onChangeInput}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/*               <Grid item xs={12}>
                 <TextField
                   margin="normal"
                   required
@@ -105,17 +121,18 @@ const Register = () => {
                   id="password"
                   autoComplete="current-password"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
-                  label="Ingresa tu número de teléfono"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  name="name"
+                  label="Ingresa tus nombres"
+                  type="text"
+                  id="name"
+                  value={user.name}
+                  onChange={onChangeInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -123,11 +140,11 @@ const Register = () => {
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
+                  name="direccion"
                   label="Ingresa tu dirección"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  type="text"
+                  id="direccion"
+                  onChange={onChangeInput}
                   multiline
                   rows={4}
                 />

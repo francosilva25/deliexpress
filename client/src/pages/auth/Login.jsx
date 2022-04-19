@@ -62,6 +62,19 @@ const Login = () => {
     }
   };
 
+  const loginSubmit = async e =>{
+    e.preventDefault()
+    try {
+        await axios.post('http://localhost:5000/user/login', {...user})
+
+        localStorage.setItem('firstLogin', true)
+        
+        window.location.href = "/";
+    } catch (err) {
+        alert(err.response.data.msg)
+    }
+}
+
   const onChangeInput = (e) => {
     const {name, value} = e.target;
     setUser({...user, [name]: value})
@@ -100,7 +113,7 @@ const Login = () => {
               <Box
                 component="form"
                 noValidate
-                onSubmit={handleSubmit}
+                onSubmit={loginSubmit}
                 sx={{ mt: 1 }}
               >
                 <TextField
