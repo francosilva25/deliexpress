@@ -145,7 +145,7 @@ const Register = () => {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="Acepto los terminos y condiciones."
+                  label="Acepto los términos y condiciones."
                 />
               </Grid>
             </Grid>
@@ -159,8 +159,8 @@ const Register = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"¿Yo tienes una cuenta? Inicia sesion"}
+                <Link href="/Login" variant="body2">
+                  {"¿Ya tienes una cuenta? Inicia sesión"}
                 </Link>
               </Grid>
             </Grid>

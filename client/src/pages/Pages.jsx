@@ -6,15 +6,22 @@ import Register from './auth/Register'
 import Cart from './cart/Cart'
 import NotFound from './utils/NotFound/NotFound'
 import DetailProduct from '../components/Products/DetailProduct';
+import {GlobalState} from '../GlobalState'
+import {useContext} from 'react';
 
 const Pages = () => {
+  const state = useContext(GlobalState)
+  const [isLogged] = state.userAPI.isLogged
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/detail/:id" element={<DetailProduct />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
+        <Route path="/Login" element={isLogged ? NotFound : Login} />
+        <Route path="/Register" element={isLogged ? NotFound : Register} />
+
         <Route path="/cart" element={<Cart />} />
         
         <Route path="*" element={<NotFound />} />
