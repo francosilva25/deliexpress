@@ -20,8 +20,6 @@ const DetailProduct = () => {
     }
   }, [params.id, products]);
 
-  console.log(detailProduct);
-
   if (detailProduct.length === 0) return null;
 
   return (
@@ -63,8 +61,8 @@ const DetailProduct = () => {
             <Grid container justifyItems="center" alignItems="center" display="flex">
               {products.map((product) => {
                 return product.category === detailProduct.category ? (
-                  <Grid item xs={4} p={1}>
-                    <Product key={product._id} product={product} />
+                  <Grid item xs={4} p={1} key={product._id}>
+                    <Product product={product} />
                   </Grid>
                 ) : null;
               })}

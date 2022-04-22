@@ -42,30 +42,10 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-/*     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    }); */
-    try {
-      console.log(user)
-      await axios.post('http://localhost:5000/user/login', {...user})
-
-      alert('Bienvenido a DeliExpress')
-      localStorage.setItem('firstLogin', true)
-
-      window.location.href = '/'
-    } catch (err) {
-      alert(err.response.data.msg)
-    }
-  };
-
   const loginSubmit = async e =>{
     e.preventDefault()
     try {
-        await axios.post('http://localhost:5000/user/login', {...user})
+        await axios.post('/user/login', {...user})
 
         localStorage.setItem('firstLogin', true)
         
