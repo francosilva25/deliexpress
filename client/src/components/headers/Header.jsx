@@ -3,15 +3,13 @@ import {
   AppBar,
   Container,
   IconButton,
-  Link,
-  Menu,
-  MenuItem,
   Grid,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { GlobalState } from "../../GlobalState";
 import axios from "axios";
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles({
   logo: {
@@ -23,6 +21,7 @@ const Header = () => {
   const state = useContext(GlobalState);
   const [isLogged, setisLogged] = state.UserAPI.isLogged;
   const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin;
+  const [cart] = state.UserAPI.cart;
 
   const classes = useStyles();
 
@@ -44,7 +43,7 @@ const Header = () => {
     return (
       <>
         <Link
-          href="/history"
+          to="/category"
           sx={{ textDecoration: "none" }}
           onClick={handleCloseNavMenu}
         >
@@ -66,7 +65,7 @@ const Header = () => {
           </Typography>
         </Link>
         <Link
-          href="/history"
+          to="create"
           sx={{ textDecoration: "none" }}
           onClick={handleCloseNavMenu}
         >
@@ -97,7 +96,7 @@ const Header = () => {
         {isAdmin ? null : (
           <>
             <Link
-              href="/history"
+              to="history"
               sx={{ textDecoration: "none" }}
               onClick={handleCloseNavMenu}
             >
@@ -119,7 +118,7 @@ const Header = () => {
               </Typography>
             </Link>{" "}
             <Link
-              href="/history"
+              to="cart"
               sx={{ textDecoration: "none" }}
               onClick={handleCloseNavMenu}
             >
@@ -142,7 +141,7 @@ const Header = () => {
             </Link>{" "}
           </>
         )}
-        <Link href="/" sx={{ textDecoration: "none" }} onClick={logoutUser}>
+        <Link to="/" sx={{ textDecoration: "none" }} onClick={logoutUser}>
           <Typography
             sx={{
               my: 2,
@@ -224,7 +223,7 @@ const Header = () => {
               loggedRouter()
             ) : (
               <Link
-                href="/login"
+                to="/login"
                 sx={{ textDecoration: "none" }}
                 onClick={handleCloseNavMenu}
               >

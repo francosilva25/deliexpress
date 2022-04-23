@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Link } from "@mui/material";
 
-const ProductItem = ({ product, isAdmin }) => {
+
+const ProductItem = ({ product, isAdmin, addCart }) => {
   return (
     <Card sx={{ maxWidth: 350 }}>
       {
@@ -50,7 +51,7 @@ const ProductItem = ({ product, isAdmin }) => {
           </> :
           <>
                   <Box py={1}>
-          <Link id="btn_buy" href="#!" sx={{textDecoration: "none"}}>
+          <Link id="btn_buy" href="#!" sx={{textDecoration: "none"}} onClick={() => addCart(product)}>
             <Button size="medium" variant="contained" >
               Comprar
             </Button>

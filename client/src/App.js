@@ -6,7 +6,6 @@ function App() {
   return (
     <DataProvider>
       <div className="App">
-        <Header />
         <Pages />
       </div>
     </DataProvider>
