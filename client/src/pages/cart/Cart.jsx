@@ -150,6 +150,9 @@ const Cart = () => {
               </Grid>
             </Grid>
           ))}
+          <Grid item xs={12} pt={4}>
+            <Button size="large" variant="contained" fullWidth sx={{padding: "1rem"}}>PAGAR AHORA</Button>
+          </Grid>
         </Grid>
       </Box>
     </Container>
