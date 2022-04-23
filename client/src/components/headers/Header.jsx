@@ -65,7 +65,7 @@ const Header = () => {
           </Typography>
         </Link>
         <Link
-          to="create"
+          to="/create_product"
           sx={{ textDecoration: "none" }}
           onClick={handleCloseNavMenu}
         >

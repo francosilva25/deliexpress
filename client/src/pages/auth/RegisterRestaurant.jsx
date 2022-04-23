@@ -32,12 +32,12 @@ function Copyright(props) {
   );
 }
 
-const Register = () => {
+const RegisterRestaurant = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
-    role: 0,
+    role: 1
   });
 
   const onChangeInput = (e) => {
@@ -48,7 +48,8 @@ const Register = () => {
   const registerSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/user/register', { ...user });
+      alert(user.role)
+      await axios.post("/user/register", { ...user });
 
       localStorage.setItem("firstLogin", true);
 
@@ -74,7 +75,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Registrate
+            Registrat tu restaurante
           </Typography>
           <Box
             component="form"
@@ -111,25 +112,13 @@ const Register = () => {
                   onChange={onChangeInput}
                 />
               </Grid>
-              {/*               <Grid item xs={12}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Verifica tu contraseña"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
                   name="name"
-                  label="Ingresa tus nombres"
+                  label="Ingresa el nombre de tu emprendimiento"
                   type="text"
                   id="name"
                   value={user.name}
@@ -174,7 +163,7 @@ const Register = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Registrarse
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
@@ -187,124 +176,8 @@ const Register = () => {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-      {/*       <Container>
-        <Grid container component="main" sx={{ height: "100vh" }}>
-          <CssBaseline />
-          <Grid
-            item
-            xs={12}
-            sx={{ boxShadow: "0px 0px 0px 0px" }}
-          >
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Registro de usuario
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Ingresa tu usuario"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Ingresa tu correo"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Ingresa tu contraseña"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Verifica tu contraseña"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Ingresa tu número de teléfono"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Ingresa tu dirección"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  multiline
-                  rows={4}
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Recordar"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      ¿Olvidaste tu contraseña?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/register" variant="body2">
-                      {"¿No tienes una cuenta? Registrate"}
-                    </Link>
-                  </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container> */}
     </Box>
   );
 };
 
-export default Register;
+export default RegisterRestaurant;
