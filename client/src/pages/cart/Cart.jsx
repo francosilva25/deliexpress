@@ -10,6 +10,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalState } from "../../GlobalState";
+import PaypalButton from "./PaypalButton";
 
 const Cart = () => {
   const state = useContext(GlobalState);
@@ -140,7 +141,9 @@ const Cart = () => {
                   <Typography variant="body2">{product.description}</Typography>
                   <Grid xs={12} py={2}>
                     <button onClick={() => decrement(product._id)}> - </button>
-                    <Typography variant="h7" px={2}>{product.quantity}</Typography>
+                    <Typography variant="h7" px={2}>
+                      {product.quantity}
+                    </Typography>
                     <button onClick={() => increment(product._id)}> + </button>
                   </Grid>
                   <Button variant="outlined" size="large">
@@ -151,7 +154,7 @@ const Cart = () => {
             </Grid>
           ))}
           <Grid item xs={12} pt={4}>
-            <Button size="large" variant="contained" fullWidth sx={{padding: "1rem"}}>PAGAR AHORA</Button>
+            <PaypalButton total={total} tranSuccess={tranSuccess} />
           </Grid>
         </Grid>
       </Box>
