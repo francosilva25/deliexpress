@@ -7,9 +7,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Link } from "@mui/material";
 
-const Product = ({ product }) => {
+
+const ProductItem = ({ product, isAdmin, addCart }) => {
   return (
     <Card sx={{ maxWidth: 350 }}>
+      {
+        isAdmin && <input type="checkbox" checked={product.checked}/>
+      }
       <CardMedia
         component="img"
         height="200px"
@@ -28,8 +32,26 @@ const Product = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>
-        <Box py={1}>
+        {
+          isAdmin ? <>
+                  <Box py={1}>
           <Link id="btn_buy" href="#!" sx={{textDecoration: "none"}}>
+            <Button size="medium" variant="contained" >
+              Eliminar
+            </Button>
+          </Link>
+        </Box>
+        <Box py={1}>
+          <Link id="btn_buy" href={`/edit_product/${product._id}`} sx={{textDecoration: "none"}}>
+            <Button size="medium" variant="outlined">
+              Editar
+            </Button>
+          </Link>
+        </Box>
+          </> :
+          <>
+                  <Box py={1}>
+          <Link id="btn_buy" href="#!" sx={{textDecoration: "none"}} onClick={() => addCart(product)}>
             <Button size="medium" variant="contained" >
               Comprar
             </Button>
@@ -42,9 +64,11 @@ const Product = ({ product }) => {
             </Button>
           </Link>
         </Box>
+          </>
+        }
       </CardActions>
     </Card>
   );
 };
 
-export default Product;
+export default ProductItem;

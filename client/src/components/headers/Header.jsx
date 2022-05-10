@@ -1,24 +1,15 @@
-import React from 'react'
+import React, { useContext } from "react";
 import {
   AppBar,
   Container,
   IconButton,
-  Link,
-  Menu,
-  MenuItem,
   Grid,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/system";
-import MenuIcon from "@mui/icons-material/Menu";
-
-const pages = [
-  { title: "Nosotros", link: "about" },
-  { title: "Productos", link: "productos" },
-  { title: "Carrito", link: "cart" },
-  { title: "Iniciar Sesión", link: "login" },
-];
+import { GlobalState } from "../../GlobalState";
+import axios from "axios";
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles({
   logo: {
@@ -27,14 +18,149 @@ const useStyles = makeStyles({
 });
 
 const Header = () => {
-  //const value = useContext(GlobalState)
+  const state = useContext(GlobalState);
+  const [isLogged, setisLogged] = state.UserAPI.isLogged;
+  const [isAdmin, setIsAdmin] = state.UserAPI.isAdmin;
+  const [cart] = state.UserAPI.cart;
 
   const classes = useStyles();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
+  /*   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  }; */
+
+  const logoutUser = async () => {
+    await axios.get("/user/logout");
+
+    localStorage.removeItem("firstLogin");
+
+    window.location.href = "/";
+  };
+
+  const adminRouter = () => {
+    return (
+      <>
+        <Link
+          to="/category"
+          sx={{ textDecoration: "none" }}
+          onClick={handleCloseNavMenu}
+        >
+          <Typography
+            sx={{
+              my: 2,
+              mx: 2,
+              display: "block",
+              color: "#505050",
+              fontWeight: "medium",
+              "&:hover": {
+                color: "#0ACF83",
+              },
+            }}
+            component="div"
+            variant="subtitle2"
+          >
+            Categorias
+          </Typography>
+        </Link>
+        <Link
+          to="/create_product"
+          sx={{ textDecoration: "none" }}
+          onClick={handleCloseNavMenu}
+        >
+          <Typography
+            sx={{
+              my: 2,
+              mx: 2,
+              display: "block",
+              color: "#505050",
+              fontWeight: "medium",
+              "&:hover": {
+                color: "#0ACF83",
+              },
+            }}
+            component="div"
+            variant="subtitle2"
+          >
+            Crear producto
+          </Typography>
+        </Link>
+      </>
+    );
+  };
+
+  const loggedRouter = () => {
+    return (
+      <>
+        {isAdmin ? null : (
+          <>
+            <Link
+              to="history"
+              sx={{ textDecoration: "none" }}
+              onClick={handleCloseNavMenu}
+            >
+              <Typography
+                sx={{
+                  my: 2,
+                  mx: 2,
+                  display: "block",
+                  color: "#505050",
+                  fontWeight: "medium",
+                  "&:hover": {
+                    color: "#0ACF83",
+                  },
+                }}
+                component="div"
+                variant="subtitle2"
+              >
+                Historial
+              </Typography>
+            </Link>{" "}
+            <Link
+              to="cart"
+              sx={{ textDecoration: "none" }}
+              onClick={handleCloseNavMenu}
+            >
+              <Typography
+                sx={{
+                  my: 2,
+                  mx: 2,
+                  display: "block",
+                  color: "#505050",
+                  fontWeight: "medium",
+                  "&:hover": {
+                    color: "#0ACF83",
+                  },
+                }}
+                component="div"
+                variant="subtitle2"
+              >
+                Carrito
+              </Typography>
+            </Link>{" "}
+          </>
+        )}
+        <Link to="/" sx={{ textDecoration: "none" }} onClick={logoutUser}>
+          <Typography
+            sx={{
+              my: 2,
+              mx: 2,
+              display: "block",
+              color: "#505050",
+              fontWeight: "medium",
+              "&:hover": {
+                color: "#0ACF83",
+              },
+            }}
+            component="div"
+            variant="subtitle2"
+          >
+            Cerrar sesión
+          </Typography>
+        </Link>
+      </>
+    );
   };
 
   const handleCloseNavMenu = () => {
@@ -58,7 +184,6 @@ const Header = () => {
             xs={4}
             sx={{
               borderRadius: "1px",
-              /* backgroundColor: "blue", */
               display: {
                 xs: "none",
                 md: "flex",
@@ -91,15 +216,16 @@ const Header = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               justifyContent: "right",
-              /* backgroundColor: "red" */
             }}
           >
-            {pages.map((page) => (
+            {isAdmin && adminRouter()}
+            {isLogged ? (
+              loggedRouter()
+            ) : (
               <Link
-                href={page.link}
+                to="/login"
                 sx={{ textDecoration: "none" }}
                 onClick={handleCloseNavMenu}
-                key={page.title}
               >
                 <Typography
                   sx={{
@@ -115,86 +241,15 @@ const Header = () => {
                   component="div"
                   variant="subtitle2"
                 >
-                  {page.title}
+                  Iniciar sesión
                 </Typography>
               </Link>
-            ))}
+            )}
           </Grid>
-
-          <Grid
-            item
-            xs={2}
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-            }}
-          >
-            <Box>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-              >
-                <MenuIcon sx={{ color: "#111827" }} />
-              </IconButton>
-
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.title}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Grid>
-
-{/*           <Grid
-            item
-            md={5}
-            xs={10}
-            bgcolor='blue'
-            sx={{
-              flexGrow: 1,
-              display: { md: "none" },
-              justifyContent: "right",
-            }}
-            alignItems="center"
-          >
-            <Box alignContent="center">
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Buscar..."
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-            </Box>
-          </Grid> */}
         </Grid>
       </Container>
     </AppBar>
   );
-}
+};
 
-export default Header
+export default Header;

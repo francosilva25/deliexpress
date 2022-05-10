@@ -1,15 +1,14 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useContext } from "react";
-import Product from "./ProductItem";
+import ProductItem from "./ProductItem";
 import {GlobalState} from '../../GlobalState'
+import Loading from '../../pages/utils/loading/Loading'
 
 const Products = () => {
   const state = useContext(GlobalState)
-
   const [products] = state.ProductsAPI.products
-
-  console.log(products)
-
+  const [isAdmin] = state.UserAPI.isAdmin
+  const addCart = state.UserAPI.addCart
   return (
     <div>
       <Box>
@@ -17,11 +16,12 @@ const Products = () => {
         <Typography variant="h6">Nuestros products</Typography>
           <Grid container py={5}  sx={{ justifyContent: "center" }}>
             {products.map((product) => (
-              <Grid item md={4} sx={12} py={2} px={1} key={product._id}>
-                <Product product={product} />
+              <Grid item md={4} xs={12} py={2} px={1} key={product._id}>
+                <ProductItem product={product} isAdmin={isAdmin} addCart={addCart}/>
               </Grid>
             ))}
           </Grid>
+          {products.length === 0 && <Loading />}
         </Container>
       </Box>
     </div>

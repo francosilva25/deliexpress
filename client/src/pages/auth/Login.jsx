@@ -42,25 +42,18 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-/*     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    }); */
+  const loginSubmit = async e =>{
+    e.preventDefault()
     try {
-      console.log(user)
-      await axios.post('http://localhost:5000/user/login', {...user})
+        await axios.post('/user/login', {...user})
 
-      alert('Bienvenido a DeliExpress')
-      localStorage.setItem('firstLogin', true)
-
-      window.location.href = '/'
+        localStorage.setItem('firstLogin', true)
+        
+        window.location.href = "/";
     } catch (err) {
-      alert(err.response.data.msg)
+        alert(err.response.data.msg)
     }
-  };
+}
 
   const onChangeInput = (e) => {
     const {name, value} = e.target;
@@ -100,7 +93,7 @@ const Login = () => {
               <Box
                 component="form"
                 noValidate
-                onSubmit={handleSubmit}
+                onSubmit={loginSubmit}
                 sx={{ mt: 1 }}
               >
                 <TextField
